@@ -19,7 +19,7 @@ const UpdateRecord: React.FC = () => {
 
   const serverUrl = window.location.hostname === 'localhost' 
     ? 'http://localhost:5000/api/students' 
-    : 'https://your-student-system.up.railway.app/api/students';
+    : 'https://student-information-system-production-712a.up.railway.app/api/students';
 
   useEffect(() => {
     const fetchCurrentData = async () => {
@@ -30,6 +30,8 @@ const UpdateRecord: React.FC = () => {
         setDraft(existingData);
       } catch (err) {
         console.error("Initialization error:", err);
+        // Alerting the user if the backend is unreachable during load
+        alert("Could not load student data. Please check your connection.");
       }
     };
     fetchCurrentData();

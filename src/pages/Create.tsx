@@ -25,9 +25,8 @@ const CreateStudent: React.FC = () => {
 
   const endpoint = window.location.hostname === 'localhost' 
     ? 'http://localhost:5000/api/students' 
-    : 'https://your-student-system.up.railway.app/api/students';
+    : 'https://student-information-system-production-712a.up.railway.app/api/students';
 
-  // Modular change handler
   const updateField = (field: keyof StudentEntry, value: string) => {
     setForm(prev => ({ ...prev, [field]: value }));
   };
@@ -49,7 +48,7 @@ const CreateStudent: React.FC = () => {
         alert(`System Error: ${err.message || "Action Failed"}`);
       }
     } catch (e) {
-      alert("Network Error: Backend is unreachable.");
+      alert("Network Error: Backend is unreachable. Check your Railway deployment and CORS settings.");
     }
   };
 

@@ -9,12 +9,17 @@ const StudentProfile: React.FC = () => {
 
   const path = window.location.hostname === 'localhost' 
     ? 'http://localhost:5000/api/students' 
-    : 'https://your-student-system.up.railway.app/api/students';
+    : 'https://student-information-system-production-712a.up.railway.app/api/students';
 
   useEffect(() => {
     const loadStudentData = async () => {
       try {
         const response = await fetch(`${path}/${id}`);
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch student record: ${response.status}`);
+        }
+
         const data = await response.json();
         setRecord(data);
       } catch (error) {
@@ -36,7 +41,7 @@ const StudentProfile: React.FC = () => {
         </Button>
       </nav>
 
-      {record && (
+      {record ? (
         <Card className="border-0 shadow-sm overflow-hidden rounded-4">
           <div className="bg-dark py-2"></div>
           
@@ -92,6 +97,10 @@ const StudentProfile: React.FC = () => {
             </Stack>
           </Card.Body>
         </Card>
+      ) : (
+        <div className="text-center py-5">
+          <p className="text-muted">Loading student profile...</p>
+        </div>
       )}
     </Container>
   );
