@@ -9,9 +9,10 @@ app.use(cors());
 app.use(express.json());
 
 const mongoURI = process.env.MONGODB_URI;
+
 mongoose.connect(mongoURI)
-  .then(() => console.log('✅ Connected to MongoDB Registry'))
-  .catch(err => console.error('❌ MongoDB connection error:', err));
+  .then(() => console.log(' Connected to MongoDB Atlas'))
+  .catch(err => console.error(' MongoDB connection error:', err));
 
 const studentSchema = new mongoose.Schema({
   studentId: { type: String, required: true, unique: true },
@@ -23,6 +24,10 @@ const studentSchema = new mongoose.Schema({
 });
 
 const Student = mongoose.model('Student', studentSchema);
+
+app.get('/', (req, res) => {
+  res.send('Student Information System API is online and running.');
+});
 
 app.get('/api/students', async (req, res) => {
   try {
@@ -76,5 +81,5 @@ app.delete('/api/students/:id', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
+  console.log(` Server is running on port ${PORT}`);
 });
